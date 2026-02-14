@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { RefreshCw, CheckCircle2, Puzzle, RotateCcw, Image as ImageIcon, Grid3X3 } from 'lucide-react'
 import './PuzzleGame.css'
 
-export default function PuzzleGame({ images }) {
+export default function PuzzleGame({ images, onWin }) {
   const [difficulty, setDifficulty] = useState(3) // 3x3, 4x4, 5x5
   const [currentImage, setCurrentImage] = useState(images[0].src)
   
@@ -11,7 +11,7 @@ export default function PuzzleGame({ images }) {
   const [isWon, setIsWon] = useState(false)
   const [draggingId, setDraggingId] = useState(null)
 
-  // Tamaño de la pieza en píxeles (un poco más grande como pediste)
+  // Tamaño de la pieza en píxeles
   const PIECE_SIZE = 90
 
   useEffect(() => {
@@ -55,20 +55,14 @@ export default function PuzzleGame({ images }) {
     e.dataTransfer.dropEffect = "move"
   }
 
-  // Soltar en el tablero
   const handleDropOnBoard = (e, targetIndex) => {
     e.preventDefault()
-    
-    // Si la casilla ya está ocupada, no hacemos nada (o podrías implementar swap)
     if (board[targetIndex]) return 
 
     const droppedPieceId = e.dataTransfer.getData('pieceId')
-
-    // 1. Buscar en Available Pieces
     const pieceInBank = availablePieces.find(p => p.id === droppedPieceId)
     
     if (pieceInBank) {
-        // Mover del Banco al Tablero
         setAvailablePieces(prev => prev.filter(p => p.id !== droppedPieceId))
         setBoard(prev => {
             const newBoard = [...prev]
@@ -77,14 +71,13 @@ export default function PuzzleGame({ images }) {
             return newBoard
         })
     } else {
-        // 2. Buscar en el Tablero (Mover de una casilla a otra)
         const oldIndex = board.findIndex(p => p && p.id === droppedPieceId)
         if (oldIndex !== -1) {
             const pieceToMove = board[oldIndex]
             setBoard(prev => {
                 const newBoard = [...prev]
-                newBoard[oldIndex] = null // Borrar de la anterior
-                newBoard[targetIndex] = pieceToMove // Poner en la nueva
+                newBoard[oldIndex] = null 
+                newBoard[targetIndex] = pieceToMove 
                 checkWin(newBoard)
                 return newBoard
             })
@@ -92,7 +85,6 @@ export default function PuzzleGame({ images }) {
     }
   }
 
-  // Devolver pieza al banco
   const handleDropOnBank = (e) => {
     e.preventDefault()
     const droppedPieceId = e.dataTransfer.getData('pieceId')
@@ -110,18 +102,19 @@ export default function PuzzleGame({ images }) {
   }
 
   const checkWin = (currentBoard) => {
-    // Verificar que CADA pieza esté en su lugar correcto
     const isCorrect = currentBoard.every((piece, index) => {
-      if (!piece) return false // Si hay huecos, no ha ganado
+      if (!piece) return false 
       const targetRow = Math.floor(index / difficulty)
       const targetCol = index % difficulty
       return piece.correctRow === targetRow && piece.correctCol === targetCol
     })
 
-    if (isCorrect) setIsWon(true)
+    if (isCorrect) {
+      setIsWon(true)
+      if (onWin) onWin() 
+    }
   }
 
-  // Estilos dinámicos para pasar las variables CSS
   const puzzleStyleVars = {
     '--grid-size': difficulty,
     '--piece-size': `${PIECE_SIZE}px`
@@ -130,7 +123,6 @@ export default function PuzzleGame({ images }) {
   return (
     <div className={`flex flex-col items-center ${isWon ? 'game-won' : ''}`} style={puzzleStyleVars}>
       
-      {/* --- CONTROLES --- */}
       <div className="game-controls">
         <div className="control-group">
           <label className="control-label flex items-center gap-1"><Grid3X3 className="w-3 h-3"/> Dificultad</label>
@@ -138,7 +130,7 @@ export default function PuzzleGame({ images }) {
             className="control-select"
             value={difficulty} 
             onChange={(e) => setDifficulty(Number(e.target.value))}
-            disabled={isWon && availablePieces.length === 0} // Deshabilitar si ganó para disfrutar la vista
+            disabled={isWon && availablePieces.length === 0}
           >
             <option value={3}>Fácil (3x3)</option>
             <option value={4}>Intermedio (4x4)</option>
@@ -178,7 +170,6 @@ export default function PuzzleGame({ images }) {
       )}
 
       <div className="game-area-container">
-        {/* TABLERO */}
         <div className="board-section">
           <h4 className="text-rose-500 font-serif font-medium mb-3 flex items-center gap-2">
             <Puzzle className="w-5 h-5"/> Arma aquí
@@ -202,6 +193,9 @@ export default function PuzzleGame({ images }) {
                       style={{
                         backgroundImage: `url(${currentImage})`,
                         backgroundPosition: `${-piece.correctCol * PIECE_SIZE}px ${-piece.correctRow * PIECE_SIZE}px`,
+                        /* CORRECCIÓN DE IMAGEN: */
+                        backgroundSize: `${difficulty * PIECE_SIZE}px ${difficulty * PIECE_SIZE}px`,
+                        backgroundRepeat: 'no-repeat'
                       }}
                     />
                   )}
@@ -212,7 +206,6 @@ export default function PuzzleGame({ images }) {
           </div>
         </div>
 
-        {/* BANCO DE PIEZAS */}
         <div className="pieces-section">
           <h4 className="text-slate-500 font-serif font-medium mb-3 flex items-center gap-2">
              Piezas <span className="text-xs text-slate-300 font-normal">(Arrastra aquí para sacar)</span>
@@ -233,6 +226,9 @@ export default function PuzzleGame({ images }) {
                 style={{
                   backgroundImage: `url(${currentImage})`,
                   backgroundPosition: `${-piece.correctCol * PIECE_SIZE}px ${-piece.correctRow * PIECE_SIZE}px`,
+                  /* CORRECCIÓN DE IMAGEN: */
+                  backgroundSize: `${difficulty * PIECE_SIZE}px ${difficulty * PIECE_SIZE}px`,
+                  backgroundRepeat: 'no-repeat'
                 }}
               />
             ))}

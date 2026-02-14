@@ -41,7 +41,7 @@ const MiniGamesSection = ({ onWin }) => {
                 )}
                 {/* CAMBIO AQUÍ: Pasamos el array de imágenes importado de la data */}
                 {gameState === 'puzzle' && (
-                    <PuzzleGame images={PUZZLE_IMAGES} />
+                    <PuzzleGame images={PUZZLE_IMAGES} onWin={onWin} />
                 )}
             </div>
         </section>

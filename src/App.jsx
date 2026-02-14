@@ -101,8 +101,8 @@ export default function App() {
     }
   }, [planes])
 
-  const handleWinGame = (puntosGanados) => {
-    setPuntos((prev) => prev + puntosGanados)
+  const handleWinGame = () => {
+    setPuntos((prev) => prev + 50)
   }
 
   const canjearVale = (id, costo) => {

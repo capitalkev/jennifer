@@ -339,7 +339,7 @@ export const LUGARES_INICIALES = [
 
 export const QUIZ_PREGUNTAS = [
   {
-    pregunta: '¿Qué me gusta de ti Jennifer?',
+    pregunta: '¿Qué me gusta de ti, Jennifer?',
     opciones: ['Tu forma de reír', 'Tus ojos hermosos', 'Tu inteligencia', 'Absolutamente todo'],
     respuestaCorrecta: 3,
   },

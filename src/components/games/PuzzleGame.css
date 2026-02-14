@@ -139,50 +139,54 @@
 }
 
 /* --- ESTILOS DE LA PIEZA --- */
+
 .puzzle-piece {
   width: var(--piece-size);
   height: var(--piece-size);
+  /* El tamaño del fondo debe ser exacto al tablero total */
   background-size: calc(var(--grid-size) * var(--piece-size)) calc(var(--grid-size) * var(--piece-size));
-  border-radius: 4px;
-  background-color: #fce7f3;
   
-  clip-path: polygon(
-    0% 10%, 35% 10%, 35% 0%, 65% 0%, 65% 10%, 100% 10%, 
-    100% 35%, 110% 35%, 110% 65%, 100% 65%, 100% 100%, 
-    65% 100%, 65% 90%, 35% 90%, 35% 100%, 0% 100%,
-    0% 65%, 10% 65%, 10% 35%, 0% 35%
-  );
-  transform: scale(1.18);
-  z-index: 10;
-  filter: drop-shadow(1px 2px 3px rgba(0,0,0,0.2));
-  transition: transform 0.1s;
+  /* CAMBIO CLAVE: Forma cuadrada con un ligero redondeo para que parezca cartón troquelado */
+  border-radius: 4px;
+  
+  /* Sombra interna para dar efecto de relieve 3D a la pieza */
+  box-shadow: 
+    inset 2px 2px 4px rgba(255, 255, 255, 0.3),
+    inset -2px -2px 4px rgba(0, 0, 0, 0.2);
+  
+  /* Eliminamos el clip-path de cruz que causaba los huecos */
+  clip-path: none; 
+  
+  /* Ajuste para que no haya distorsión */
+  transform: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 0.5px solid rgba(0, 0, 0, 0.1); /* Línea de corte fina */
 }
 
+/* Piezas en el banco (derecha) */
 .draggable-piece {
   cursor: grab;
+  margin: 4px; /* Pequeño margen para que no se peguen en el banco */
 }
+
 .draggable-piece:hover {
-  filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.3));
-  z-index: 20;
-}
-.draggable-piece.is-being-dragged {
-  opacity: 0.001;
-  pointer-events: none;
+  transform: scale(1.05);
+  z-index: 50;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
 }
 
+/* Espacio en el tablero */
+.board-slot-target {
+  width: var(--piece-size);
+  height: var(--piece-size);
+  border: 1px dashed rgba(244, 63, 94, 0.1); /* Guía muy tenue */
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Cuando la pieza está en el tablero, eliminamos el margen para que peguen perfecto */
 .placed-piece {
-  cursor: grab; 
-  z-index: 5;
-  filter: drop-shadow(0px 1px 1px rgba(0,0,0,0.2)); 
-  pointer-events: auto; 
-}
-.placed-piece:active {
-  cursor: grabbing;
-  z-index: 20;
-}
-
-.game-won .placed-piece,
-.game-won .draggable-piece {
-  pointer-events: none;
-  cursor: default;
+  margin: 0;
+  border-radius: 0; /* Al encajar, se vuelven una imagen única */
+  box-shadow: none;
+  border: 0.1px solid rgba(255, 255, 255, 0.1);
 }

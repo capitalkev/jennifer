@@ -1,0 +1,23 @@
+.puzzle-container {
+  display: grid;
+  grid-template-rows: repeat(4, 100px);
+  grid-template-columns: repeat(4, 100px);
+  gap: 2px;
+  width: 402px;
+  height: 402px;
+  margin: 0 auto;
+  border: 2px solid #000;
+  position: relative;
+}
+
+.puzzle-piece {
+  width: 100px;
+  height: 100px;
+  background-size: 400px 400px;
+  border: 1px solid #ccc;
+  cursor: grab;
+}
+
+.puzzle-piece.correct {
+  border: 2px solid green;
+}

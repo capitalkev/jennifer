@@ -281,7 +281,12 @@ export const JUEGO_IMAGENES = [
     '/imagen6.jpg',
 ]
 
-export const PUZZLE_IMAGE = '/ciervo.jpg'
+export const PUZZLE_IMAGES = [
+  { id: 1, src: '/ciervo.jpg', label: 'Ciervo Místico' },
+  { id: 2, src: '/imagen1.jpg', label: 'Foto Juntos 1' },
+  { id: 3, src: '/imagen13.jpg', label: 'Paseo' },
+  { id: 4, src: '/imagen18.jpg', label: 'Selfie' },
+]
 
 export const CHECK_ACTIVIDADES = [
   { id: 1, titulo: 'Ir al zoológico', done: false },

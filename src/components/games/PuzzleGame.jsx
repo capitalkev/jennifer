@@ -1,75 +1,250 @@
-import React, { useState, useEffect } from 'react';
-import './PuzzleGame.css';
+import { useState, useEffect } from 'react'
+import { RefreshCw, CheckCircle2, Puzzle, RotateCcw, Image as ImageIcon, Grid3X3 } from 'lucide-react'
+import './PuzzleGame.css'
 
-const PuzzleGame = ({ image }) => {
-  const gridSize = 4;
-  const [pieces, setPieces] = useState([]);
-  const [draggedPiece, setDraggedPiece] = useState(null);
+export default function PuzzleGame({ images }) {
+  const [difficulty, setDifficulty] = useState(3) // 3x3, 4x4, 5x5
+  const [currentImage, setCurrentImage] = useState(images[0].src)
+  
+  const [availablePieces, setAvailablePieces] = useState([])
+  const [board, setBoard] = useState([])
+  const [isWon, setIsWon] = useState(false)
+  const [draggingId, setDraggingId] = useState(null)
+
+  // Tamaño de la pieza en píxeles (un poco más grande como pediste)
+  const PIECE_SIZE = 90
 
   useEffect(() => {
-    const shuffledPieces = [];
-    for (let row = 0; row < gridSize; row++) {
-      for (let col = 0; col < gridSize; col++) {
-        shuffledPieces.push({
-          id: `${row}-${col}`,
-          row,
-          col,
-          currentRow: Math.floor(Math.random() * gridSize),
-          currentCol: Math.floor(Math.random() * gridSize),
-        });
+    startNewGame()
+  }, [difficulty, currentImage])
+
+  const startNewGame = () => {
+    const totalPieces = difficulty * difficulty
+    const newBoard = Array(totalPieces).fill(null)
+    const pieces = []
+
+    for (let row = 0; row < difficulty; row++) {
+      for (let col = 0; col < difficulty; col++) {
+        pieces.push({
+          id: `piece-${row}-${col}`,
+          correctRow: row,
+          correctCol: col,
+        })
       }
     }
-    setPieces(shuffledPieces);
-  }, []);
+
+    const shuffled = [...pieces].sort(() => Math.random() - 0.5)
+    setAvailablePieces(shuffled)
+    setBoard(newBoard)
+    setIsWon(false)
+    setDraggingId(null)
+  }
 
   const handleDragStart = (e, piece) => {
-    setDraggedPiece(piece);
-  };
+    e.dataTransfer.setData('pieceId', piece.id)
+    e.dataTransfer.effectAllowed = "move"
+    setTimeout(() => setDraggingId(piece.id), 0)
+  }
 
-  const handleDrop = (e, targetPiece) => {
-    e.preventDefault();
-    if (draggedPiece) {
-      const updatedPieces = pieces.map((p) => {
-        if (p.id === draggedPiece.id) {
-          return { ...p, currentRow: targetPiece.row, currentCol: targetPiece.col };
-        } else if (p.id === targetPiece.id) {
-          return { ...p, currentRow: draggedPiece.row, currentCol: draggedPiece.col };
-        }
-        return p;
-      });
-      setPieces(updatedPieces);
-      setDraggedPiece(null);
-    }
-  };
+  const handleDragEnd = () => {
+    setDraggingId(null)
+  }
 
   const handleDragOver = (e) => {
-    e.preventDefault();
-  };
+    e.preventDefault()
+    e.dataTransfer.dropEffect = "move"
+  }
 
-  const isPieceInCorrectPosition = (piece) => {
-    return piece.row === piece.currentRow && piece.col === piece.currentCol;
-  };
+  // Soltar en el tablero
+  const handleDropOnBoard = (e, targetIndex) => {
+    e.preventDefault()
+    
+    // Si la casilla ya está ocupada, no hacemos nada (o podrías implementar swap)
+    if (board[targetIndex]) return 
+
+    const droppedPieceId = e.dataTransfer.getData('pieceId')
+
+    // 1. Buscar en Available Pieces
+    const pieceInBank = availablePieces.find(p => p.id === droppedPieceId)
+    
+    if (pieceInBank) {
+        // Mover del Banco al Tablero
+        setAvailablePieces(prev => prev.filter(p => p.id !== droppedPieceId))
+        setBoard(prev => {
+            const newBoard = [...prev]
+            newBoard[targetIndex] = pieceInBank
+            checkWin(newBoard)
+            return newBoard
+        })
+    } else {
+        // 2. Buscar en el Tablero (Mover de una casilla a otra)
+        const oldIndex = board.findIndex(p => p && p.id === droppedPieceId)
+        if (oldIndex !== -1) {
+            const pieceToMove = board[oldIndex]
+            setBoard(prev => {
+                const newBoard = [...prev]
+                newBoard[oldIndex] = null // Borrar de la anterior
+                newBoard[targetIndex] = pieceToMove // Poner en la nueva
+                checkWin(newBoard)
+                return newBoard
+            })
+        }
+    }
+  }
+
+  // Devolver pieza al banco
+  const handleDropOnBank = (e) => {
+    e.preventDefault()
+    const droppedPieceId = e.dataTransfer.getData('pieceId')
+    const oldIndex = board.findIndex(p => p && p.id === droppedPieceId)
+    
+    if (oldIndex !== -1) {
+        const pieceToMove = board[oldIndex]
+        setBoard(prev => {
+            const newBoard = [...prev]
+            newBoard[oldIndex] = null
+            return newBoard
+        })
+        setAvailablePieces(prev => [...prev, pieceToMove])
+    }
+  }
+
+  const checkWin = (currentBoard) => {
+    // Verificar que CADA pieza esté en su lugar correcto
+    const isCorrect = currentBoard.every((piece, index) => {
+      if (!piece) return false // Si hay huecos, no ha ganado
+      const targetRow = Math.floor(index / difficulty)
+      const targetCol = index % difficulty
+      return piece.correctRow === targetRow && piece.correctCol === targetCol
+    })
+
+    if (isCorrect) setIsWon(true)
+  }
+
+  // Estilos dinámicos para pasar las variables CSS
+  const puzzleStyleVars = {
+    '--grid-size': difficulty,
+    '--piece-size': `${PIECE_SIZE}px`
+  }
 
   return (
-    <div className="puzzle-container">
-      {pieces.map((piece) => (
-        <div
-          key={piece.id}
-          className={`puzzle-piece ${isPieceInCorrectPosition(piece) ? 'correct' : ''}`}
-          style={{
-            backgroundImage: `url(${image})`,
-            backgroundPosition: `${-piece.row * 100}px ${-piece.col * 100}px`,
-            gridRow: piece.currentRow + 1,
-            gridColumn: piece.currentCol + 1,
-          }}
-          draggable
-          onDragStart={(e) => handleDragStart(e, piece)}
-          onDragOver={handleDragOver}
-          onDrop={(e) => handleDrop(e, piece)}
-        ></div>
-      ))}
-    </div>
-  );
-};
+    <div className={`flex flex-col items-center ${isWon ? 'game-won' : ''}`} style={puzzleStyleVars}>
+      
+      {/* --- CONTROLES --- */}
+      <div className="game-controls">
+        <div className="control-group">
+          <label className="control-label flex items-center gap-1"><Grid3X3 className="w-3 h-3"/> Dificultad</label>
+          <select 
+            className="control-select"
+            value={difficulty} 
+            onChange={(e) => setDifficulty(Number(e.target.value))}
+            disabled={isWon && availablePieces.length === 0} // Deshabilitar si ganó para disfrutar la vista
+          >
+            <option value={3}>Fácil (3x3)</option>
+            <option value={4}>Intermedio (4x4)</option>
+            <option value={5}>Difícil (5x5)</option>
+          </select>
+        </div>
 
-export default PuzzleGame;
+        <div className="control-group">
+          <label className="control-label flex items-center gap-1"><ImageIcon className="w-3 h-3"/> Imagen</label>
+          <select 
+            className="control-select"
+            value={currentImage} 
+            onChange={(e) => setCurrentImage(e.target.value)}
+          >
+            {images.map((img) => (
+              <option key={img.id} value={img.src}>{img.label}</option>
+            ))}
+          </select>
+        </div>
+
+        <div className="flex items-end">
+            <button
+                onClick={startNewGame}
+                className="bg-rose-100 hover:bg-rose-200 text-rose-600 p-2.5 rounded-lg transition-colors"
+                title="Reiniciar"
+            >
+                <RotateCcw className="w-5 h-5" />
+            </button>
+        </div>
+      </div>
+
+      {isWon && (
+        <div className="mb-6 bg-green-100 text-green-700 px-8 py-4 rounded-xl flex items-center gap-3 animate-bounce font-serif text-lg border border-green-200 shadow-sm">
+          <CheckCircle2 className="w-8 h-8" />
+          <span>¡Lo lograste! Eres increíble ❤️</span>
+        </div>
+      )}
+
+      <div className="game-area-container">
+        {/* TABLERO */}
+        <div className="board-section">
+          <h4 className="text-rose-500 font-serif font-medium mb-3 flex items-center gap-2">
+            <Puzzle className="w-5 h-5"/> Arma aquí
+          </h4>
+          
+          <div className={`puzzle-board-frame ${isWon ? 'is-won' : ''}`}>
+            <div className="puzzle-board-grid">
+              {board.map((piece, index) => (
+                <div
+                  key={index}
+                  className="board-slot-target"
+                  onDragOver={handleDragOver}
+                  onDrop={(e) => handleDropOnBoard(e, index)}
+                >
+                  {piece && (
+                    <div
+                      className={`puzzle-piece placed-piece ${draggingId === piece.id ? 'is-being-dragged' : ''}`}
+                      draggable={!isWon}
+                      onDragStart={(e) => handleDragStart(e, piece)}
+                      onDragEnd={handleDragEnd}
+                      style={{
+                        backgroundImage: `url(${currentImage})`,
+                        backgroundPosition: `${-piece.correctCol * PIECE_SIZE}px ${-piece.correctRow * PIECE_SIZE}px`,
+                      }}
+                    />
+                  )}
+                  {!piece && !isWon && <div className="slot-guide">+</div>}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* BANCO DE PIEZAS */}
+        <div className="pieces-section">
+          <h4 className="text-slate-500 font-serif font-medium mb-3 flex items-center gap-2">
+             Piezas <span className="text-xs text-slate-300 font-normal">(Arrastra aquí para sacar)</span>
+          </h4>
+          
+          <div 
+            className="pieces-bank-container"
+            onDragOver={handleDragOver}
+            onDrop={handleDropOnBank}
+          >
+            {availablePieces.map((piece) => (
+              <div
+                key={piece.id}
+                className={`puzzle-piece draggable-piece ${draggingId === piece.id ? 'is-being-dragged' : ''}`}
+                draggable={!isWon}
+                onDragStart={(e) => handleDragStart(e, piece)}
+                onDragEnd={handleDragEnd}
+                style={{
+                  backgroundImage: `url(${currentImage})`,
+                  backgroundPosition: `${-piece.correctCol * PIECE_SIZE}px ${-piece.correctRow * PIECE_SIZE}px`,
+                }}
+              />
+            ))}
+            
+            {availablePieces.length === 0 && !isWon && (
+               <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                  <span className="text-slate-300 text-sm italic">¡Casi listo!</span>
+               </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}

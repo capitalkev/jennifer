@@ -270,6 +270,16 @@ export const VALES_INICIALES = [
     costo: 300,
     canjeado: false,
   },
+  {
+    id: 21,
+    titulo: 'Un perdon sincero',
+    descripcion:
+      'Válido por un perdón sincero. Estoy dispuesto a perdonarte y enmendar cualquier error.',
+    Icon: Ticket,
+    iconClassName: 'w-6 h-6 text-rose-400',
+    costo: 30000,
+    canjeado: false,
+  },
 ]
 
 export const JUEGO_IMAGENES = [
@@ -283,9 +293,9 @@ export const JUEGO_IMAGENES = [
 
 export const PUZZLE_IMAGES = [
   { id: 1, src: '/ciervo.jpg', label: 'Ciervo Místico' },
-  { id: 2, src: '/imagen1.jpg', label: 'Foto Juntos 1' },
-  { id: 3, src: '/imagen13.jpg', label: 'Paseo' },
-  { id: 4, src: '/imagen18.jpg', label: 'Selfie' },
+  { id: 2, src: '/moa.jpg', label: 'Gatito' },
+  { id: 3, src: '/patito.jpg', label: 'Pato Asustado' },
+  { id: 4, src: '/rostro.jpg', label: 'Bailu' },
 ]
 
 export const CHECK_ACTIVIDADES = [
@@ -329,19 +339,29 @@ export const LUGARES_INICIALES = [
 
 export const QUIZ_PREGUNTAS = [
   {
-    pregunta: '¿Qué detalle tuyo me cautivó por completo desde el primer día?',
+    pregunta: '¿Qué me gusta de ti Jennifer?',
     opciones: ['Tu forma de reír', 'Tus ojos hermosos', 'Tu inteligencia', 'Absolutamente todo'],
     respuestaCorrecta: 3,
   },
   {
     pregunta:
-      "Como mi nutricionista favorita... ¿Cuál es el 'gustito culposo' que más me cuesta dejar?",
-    opciones: ['El helado a medianoche', 'La pizza de los fines de semana', 'El exceso de café', 'Los postres dulces'],
-    respuestaCorrecta: 1,
+      "Cuantos besitos nos daremos en toda nuestra vida juntos?",
+    opciones: ['1 besito', '1000 besitos', 'Infintos besitos', 'Ninguno, solo abrazitos'],
+    respuestaCorrecta: 2,
   },
   {
     pregunta: '¿Cuál dirías que es mi momento favorito del día cuando estamos juntos?',
-    opciones: ['Al despertar a tu lado', 'A la hora de cenar', 'Viendo películas abrazados', 'Cualquier instante si es contigo'],
+    opciones: ['Caminar a tu lado', 'A la hora de cenar', 'Viendo películas abrazados', 'Cualquier instante si es contigo'],
     respuestaCorrecta: 3,
+  },
+  {
+    pregunta: '¿Que me enamoro de ti Jennifer?',
+    opciones: ['Tu forma de ser', 'Como me haces sentir', 'Tus ojitos bonitos', 'Todas las anteriores'],
+    respuestaCorrecta: 3,
+  },
+  {
+    pregunta: '¿Cual es mi platillo favorito?',
+    opciones: ['Tarta de Manzana', 'Tus besitos', 'Cualquier comida', 'Tu comida casera'],
+    respuestaCorrecta: 1,
   },
 ]

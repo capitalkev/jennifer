@@ -7,7 +7,7 @@ import {
   JUEGO_IMAGENES,
   LUGARES_INICIALES,
   PLANES_INICIALES,
-  PUZZLE_IMAGE,
+  PUZZLE_IMAGES,
   QUIZ_PREGUNTAS,
   RECUERDOS,
   VALES_INICIALES,
@@ -25,7 +25,6 @@ import LoveLetter from './components/sections/LoveLetter.jsx'
 import MiniGamesSection from './components/sections/MiniGamesSection.jsx'
 import CheckSection from './components/sections/CheckSection.jsx'
 import CountdownSection from './components/sections/CountdownSection.jsx'
-import PlacesMapSection from './components/sections/PlacesMapSection.jsx'
 import TimelineSection from './components/sections/TimelineSection.jsx'
 import ValesSection from './components/sections/ValesSection.jsx'
 
@@ -139,7 +138,7 @@ export default function App() {
         <LoveLetter message={CARTA_MENSAJE} />
         <MiniGamesSection
           memoryImages={JUEGO_IMAGENES}
-          puzzleImage={PUZZLE_IMAGE}
+          puzzleImage={PUZZLE_IMAGES}
           quizQuestions={QUIZ_PREGUNTAS}
           onWin={handleWinGame}
         />
@@ -147,7 +146,6 @@ export default function App() {
         <TimelineSection recuerdos={RECUERDOS} />
         <CheckSection activities={checkActividades} onToggle={toggleCheckActividad} />
         <CountdownSection plans={planes} onAddPlan={addPlan} />
-        <PlacesMapSection places={lugares} />
         <GallerySection fotos={FOTOS} />
         <Footer />
       </div>

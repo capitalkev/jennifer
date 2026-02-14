@@ -10,7 +10,7 @@ export default function Header() {
         Para ti, mi amorcito
       </h1>
       <p className="text-lg md:text-xl text-slate-500 font-light max-w-2xl mx-auto tracking-wide">
-        Un espacio dedicado a nuestra historia de amor.
+        Feliz dia amorcito, no solo hoy sino todos los dias, gracias por ser mi compañera de vida, por hacerme reir, por apoyarme en mis locuras y por ser la persona maravillosa que eres.
       </p>
     </header>
   )

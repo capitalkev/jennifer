@@ -85,28 +85,31 @@ export default function ValesSection({ vales, puntos, onRedeem }) {
                       type="button"
                       onClick={() => onRedeem(vale.id, vale.costo)}
                       disabled={vale.canjeado || (!puedeComprar && !vale.canjeado)}
-                      className={`w-full py-3.5 px-5 rounded-xl font-medium flex items-center justify-center gap-2 transition-all tracking-wide ${
+                      className={`w-full py-3.5 px-5 rounded-xl font-medium flex items-center justify-center gap-2 transition-all ${
                         vale.canjeado
                           ? 'bg-slate-100 text-slate-400 cursor-not-allowed'
                           : puedeComprar
-                            ? 'bg-rose-400 hover:bg-rose-500 text-white shadow-md shadow-rose-200 active:scale-[0.98]'
+                            ? 'bg-rose-400 hover:bg-rose-500 text-white shadow-md'
                             : 'bg-slate-100 text-slate-400 cursor-not-allowed border border-slate-200'
                       }`}
                     >
                       {vale.canjeado ? (
-                        <>
-                          <CheckCircle className="w-5 h-5" /> Utilizado
-                        </>
+                        <> <CheckCircle className="w-5 h-5" /> Utilizado </>
+                      ) : vale.requiereCodigo && puedeComprar ? (
+                        <> <Ticket className="w-4 h-4" /> Validar Código </> 
                       ) : puedeComprar ? (
-                        <>
-                          <Heart className="w-4 h-4" /> Canjear
-                        </>
+                        <> <Heart className="w-4 h-4" /> Canjear </>
                       ) : (
-                        <>
-                          <Lock className="w-4 h-4" /> Faltan {vale.costo - puntos} pts
-                        </>
+                        <> <Lock className="w-4 h-4" /> Faltan {vale.costo - puntos} pts </>
                       )}
                     </button>
+                    
+                    {/* Pista visual opcional debajo del botón */}
+                    {vale.requiereCodigo && puedeComprar && !vale.canjeado && (
+                      <p className="text-[11px] text-rose-400 mt-2 text-center italic font-light">
+                        * Requiere clave del regalo físico
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>

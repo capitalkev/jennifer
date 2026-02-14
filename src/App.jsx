@@ -105,12 +105,31 @@ export default function App() {
     setPuntos((prev) => prev + 50)
   }
 
-  const canjearVale = (id, costo) => {
-    if (puntos < costo) return
+  // src/App.jsx
 
-    setPuntos((prev) => prev - costo)
-    setVales((prev) => prev.map((vale) => (vale.id === id ? { ...vale, canjeado: true } : vale)))
+const canjearVale = (id, costo) => {
+  if (puntos < costo) return;
+
+  const vale = vales.find(v => v.id === id);
+
+  if (vale.requiereCodigo) {
+    const inputCodigo = prompt(`Este vale es especial. ${vale.pistaCodigo || ''}\n\nIntroduce el código secreto:`);
+    
+    if (!inputCodigo) return;
+    
+    if (inputCodigo.trim().toUpperCase() !== vale.codigoCorrecto.toUpperCase()) {
+      alert("¡Código incorrecto! ❌ Inténtalo de nuevo cuando lo encuentres.");
+      return;
+    }
+    alert("¡Código validado! ❤️ Disfruta tu sorpresa.");
   }
+
+  // Si no requiere código o si el código fue correcto:
+  setPuntos((prev) => prev - costo);
+  setVales((prev) =>
+    prev.map((v) => (v.id === id ? { ...v, canjeado: true } : v))
+  );
+};
 
   const toggleCheckActividad = (id) => {
     setCheckActividades((prev) =>

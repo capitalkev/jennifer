@@ -1,5 +1,6 @@
 import {
   Gift,
+  Heart,
   HeartHandshake,
   Map,
   Sparkles,
@@ -22,18 +23,18 @@ export const RECUERDOS = [
   },
   {
     id: 2,
-    fecha: 'Aventuras juntos',
-    titulo: 'Descubriendo el mundo',
+    fecha: '9 de mayo de 2025',
+    titulo: 'Una espera que valió la pena',
     descripcion:
-      'Cada viaje, cada caminata y cada lugar nuevo que exploramos juntos se convierte en mi lugar favorito si estoy de tu mano.',
-    Icon: Map,
+      'Volverme a encontrame contigo, ese dia estuve nervioso, pero al mismo tiempo feliz, porque sabia que te volveria a ver, y cuando te vi se detuvo todo para mi, estabas igual de hermosa como el dia que te fuiste',
+    Icon: Heart,
   },
   {
     id: 3,
-    fecha: 'Hoy y siempre',
-    titulo: 'Un amor que florece',
+    fecha: '17 de mayo de 2025',
+    titulo: 'Nuestro primer beso',
     descripcion:
-      'Cada día a tu lado es una oportunidad para seguir creciendo juntos. Mi mayor proyecto de vida es hacerte feliz.',
+      'Despues de tantos años, por fin pude declarame y decirte lo mucho te te extrañe y ame, estuve nervioso, pero me arme de valor para decirt lo que sentia, ese dia te bese por primera vez y no deje de pensar en ese primer beso hasta hoy dia. Gracias por aceptar ser mi novia, y por darme la oportunidad de amarte y cuidarte.',
     Icon: HeartHandshake,
   },
 ]
@@ -41,33 +42,94 @@ export const RECUERDOS = [
 export const FOTOS = [
   {
     id: 1,
-    url: '/imagen1.jpg',
-    caption: 'Nuestro primer San Valentín',
+    url: '/imagen8.jpg',
+    caption: 'Mi hermosa nutricionista ❤️',
+    mensaje: 'No me gusta ir al hospital, pero por ti iria a que me hagan mil pruebas, solo para verte a ti. Eres mi nutricinista favorita, la que me cuida el corazoncito y mi alimentacion. Te amo ❤️.',
     span: 'md:col-span-2 md:row-span-2',
   },
   {
     id: 2,
-    url: '/imagen2.jpg',
-    caption: 'Paz a tu lado',
-    span: 'md:col-span-1 md:row-span-1',
+    url: '/imagen6.jpg',
+    caption: 'Hermosa sonrisa',
+    mensaje: 'El gesto mas bonito que tienes es tu sonrisa, me derrite cada vez que la veo. Eres mi persona favorita para hacerte sonreir, y la unica capaz de hacerme sonreir asi.',
+    span: 'md:col-span-2 md:row-span-1',
   },
   {
     id: 3,
-    url: '/imagen3.jpg',
-    caption: 'Cenas inolvidables',
-    span: 'md:col-span-1 md:row-span-2',
+    url: '/imagen23.jpg',
+    caption: 'Mi bebita hermosa',
+    mensaje: 'Eres mi bebita hermosa, la que me roba el corazon cada vez que te veo. No importa cuantas veces te vea, siempre me vas a sorprender con tu belleza y tu ternura. Pondria las manos al fuego por ti y te cuidaria de cualquier dolor. Te amo jennifer.',
+    span: 'md:col-span-2 md:row-span-1',
   },
   {
     id: 4,
-    url: '/imagen4.jpg',
-    caption: 'Risas que curan el alma',
-    span: 'md:col-span-1 md:row-span-1',
+    url: '/imagen17.jpg',
+    caption: 'Tus manitos son seguras',
+    span: 'md:col-span-1 md:row-span-2',
+    mensaje: 'No me sueltes amorcito, ni te alejes, porque tus manitos son el lugar mas seguro del mundo para mi. Eres mi refugio seguro, mi hogar, y no hay nada que me haga sentir más amado que estar agarrado de tus manitos. Te amo con todo mi corazón.',
   },
   {
     id: 5,
     url: '/imagen5.jpg',
-    caption: 'Nuestras escapadas',
+    caption: 'La mujer perfecta para mi',
+    mensaje: 'Supe que eras tu desde el primer momento que te vi, y cada dia a tu lado me confirma que eres la mujer perfecta para mi. Eres mi compañera de vida, mi mejor amiga, y el amor de mi vida. No puedo esperar para seguir construyendo nuestro futuro juntos.',
+    span: 'md:col-span-2 md:row-span-2',
+  },
+  {
+    id: 6,
+    url: '/imagen19.jpg',
+    caption: 'La persona que amo',
+    mensaje: 'Me detengo a contemplarte y me doy cuenta de lo afortunado que soy de tener a alguien tan increíble como tú en mi vida. Eres la persona que amo, la que me hace sentir completo y feliz. No importa lo que el futuro nos depare, siempre te amaré mi caballito de mar.',
+    span: 'md:col-span-1 md:row-span-2',
+  },
+  {
+    id: 7,
+    url: '/imagen29.jpg',
+    caption: 'Mi pequeña Anneliese',
     span: 'md:col-span-2 md:row-span-1',
+    mensaje: 'Eres la representacion de la ternura y la belleza, mi pequeña Anneliese. Las veces que te veo de bebita, pienso que asi sera nuestra futura hijita, y me llena de alegria imaginarla tan hermosa y dulce como tu. Eres mi inspiración diaria, y no puedo esperar para construir una familia contigo en el futuro.',
+  },
+  {
+    id: 8,
+    url: '/imagen32.jpg',
+    caption: 'La ultima vez que te vi',
+    mensaje: '¿Como matar a un hombre de amor? La ultima vez que te vi, me quede sin palabras, sin aliento, sin nada que decir, solo me quede mirandote y admirandote, porque eres la mujer que amaba, y pensar que seria la ultima vez que te veria, me hizo darme cuenta de lo mucho que te amo, y de lo mucho que te necesitaba. Te he esperado todo este tiempo, Jennifer.',
+    span: 'md:col-span-2 md:row-span-2',
+  },
+  {
+    id: 9,
+    url: '/imagen28.jpg',
+    caption: 'Mi hermosa Jennifer',
+    mensaje: 'Eres igual de bonita desde pequeña, hasta ahora, y lo seras por siempre, mi hermosa Jennifer. No importa cuantas veces te vea, siempre me vas a sorprender con tu belleza y tu ternura',
+    span: 'md:col-span-1 md:row-span-2',
+  },
+  {
+    id: 10,
+    url: '/imagen30.jpg',
+    caption: 'Besitos',
+    mensaje: 'Mua mua, te mando un monton de besitos, para que te los guardes en tu corazoncito y los uses cuando quieras sentir mi amor cerca de ti. Te dare besitos hasta el fin de los tiempos, mi amorcito.',
+    span: 'md:col-span-1 md:row-span-1',
+  },
+  {
+    id: 11, 
+    url: '/imagen31.jpg',
+    caption: 'Derites mi corazon',
+    mensaje: 'Tengo la novia mas hermosa del mundo, con razon soy famoso en la academia, si estoy con la mujer mas bonita de todas las academias.',
+    span: 'md:col-span-1 md:row-span-1',
+  },
+  {
+    id: 12,
+    url: '/imagen22.jpg',
+    caption: 'El cumpleaños de mi amorcito',
+    mensaje: 'Feliz cumpleaños mi amorcito, cuantos añitos tenias en esta foto? No importa cuantos años tengas, siempre seras mi bebita hermosa, la que me roba el corazon cada vez que te veo.',
+    span: 'md:col-span-1 md:row-span-1',
+  },
+  {
+    id: 13,
+    url: '/imagen24.jpg',
+    caption: 'Nuestra primera cita como novios',
+    mensaje: 'Que emocionado estaba ese dia, en poder salir por primera vez con mi novia, gracias por regresar a mi vida, Jennifer.',
+    span: 'md:col-span-1 md:row-span-1',
   },
 ]
 
@@ -80,6 +142,8 @@ export const VALES_INICIALES = [
     iconClassName: 'w-6 h-6 text-rose-400',
     costo: 500,
     canjeado: false,
+    requiereCodigo: true,
+    codigoCorrecto: 'comer_rico',
   },
   {
     id: 2,
@@ -90,6 +154,9 @@ export const VALES_INICIALES = [
     iconClassName: 'w-6 h-6 text-rose-400',
     costo: 250,
     canjeado: false,
+    requiereCodigo: true,
+    codigoCorrecto: 'kevin_soy_tuya',
+    pistaCodigo: 'Una frase que te diria para recordarte que siempre seras mia',
   },
   {
     id: 3,
@@ -99,6 +166,9 @@ export const VALES_INICIALES = [
     iconClassName: 'w-6 h-6 text-rose-400',
     costo: 400,
     canjeado: false,
+    requiereCodigo: true,
+    codigoCorrecto: 'hoy_es_tu_dia',
+    pistaCodigo: 'Una frase que te diria para recordarte que hoy es tu día',
   },
   {
     id: 4,
@@ -129,6 +199,9 @@ export const VALES_INICIALES = [
     iconClassName: 'w-6 h-6 text-rose-400',
     costo: 300,
     canjeado: false,
+    requiereCodigo: true,
+    codigoCorrecto: 'pelicula_juntitos',
+    pistaCodigo: 'Una frase que te diria para invitarte a ver una película conmigo',
   },
   {
     id: 7,
@@ -139,6 +212,8 @@ export const VALES_INICIALES = [
     iconClassName: 'w-6 h-6 text-rose-400',
     costo: 300,
     canjeado: false,
+    requiereCodigo: true,
+    codigoCorrecto: 'quiero_canchita',
   },
   {
     id: 8,
@@ -199,6 +274,9 @@ export const VALES_INICIALES = [
     iconClassName: 'w-6 h-6 text-rose-400',
     costo: 100,
     canjeado: false,
+    requiereCodigo: true,
+    codigoCorrecto: 'Amorcito',
+    pistaCodigo: 'Nuestro apodo de cariño',
   },
   {
     id: 14,
@@ -219,6 +297,8 @@ export const VALES_INICIALES = [
     iconClassName: 'w-6 h-6 text-rose-400',
     costo: 650,
     canjeado: false,
+    requiereCodigo: true,
+    codigoCorrecto: 'tengo_casa_sola',
   },
   {
     id: 16,
@@ -269,6 +349,9 @@ export const VALES_INICIALES = [
     iconClassName: 'w-6 h-6 text-rose-400',
     costo: 300,
     canjeado: false,
+    requiereCodigo: true,
+    codigoCorrecto: 'sueltate_un_pasito',
+    pistaCodigo: 'Es una frase que te diria para animarte a bailar conmigo',
   },
   {
     id: 21,
@@ -283,12 +366,12 @@ export const VALES_INICIALES = [
 ]
 
 export const JUEGO_IMAGENES = [
-    '/imagen1.jpg',
-    '/imagen2.jpg',
-    '/imagen3.jpg',
-    '/imagen4.jpg',
-    '/imagen5.jpg',
-    '/imagen6.jpg',
+    '/lia1.jpg',
+    '/lia2.jpg',
+    '/imagen33.jpg',
+    '/imagen34.jpg',
+    '/imagen35.jpg',
+    '/imagen18.jpg',
 ]
 
 export const PUZZLE_IMAGES = [
@@ -299,8 +382,8 @@ export const PUZZLE_IMAGES = [
 ]
 
 export const CHECK_ACTIVIDADES = [
-  { id: 1, titulo: 'Ir al zoológico', done: false },
-  { id: 2, titulo: 'Hacer un picnic', done: false },
+  { id: 1, titulo: 'Ir al zoológico', done: true },
+  { id: 2, titulo: 'Hacer un picnic', done: true },
   { id: 3, titulo: 'Ver el atardecer juntos', done: true },
   { id: 4, titulo: 'Cocinar una receta nueva', done: false },
   { id: 5, titulo: 'Ir a un museo', done: false },
@@ -311,18 +394,30 @@ export const CHECK_ACTIVIDADES = [
   { id: 10, titulo: 'Escribirnos una carta', done: false },
   { id: 11, titulo: 'Cita sorpresa', done: false },
   { id: 12, titulo: 'Ir por un postre juntos', done: true },
+  { id: 13, titulo: 'Ir a un concierto', done: false },
+  { id: 14, titulo: 'Tomarnos una foto en un lugar bonito', done: true },
+  { id: 15, titulo: 'Escribirnos una carta', done: true },
+  { id: 16, titulo: 'Cita sorpresa', done: false },
+  { id: 17, titulo: 'Bailar juntos', done: false },
+  { id: 18, titulo: 'Disfrasarnos para Halloween', done: false },
+  { id: 19, titulo: 'Pasar navidad juntos', done: false },
+  { id: 20, titulo: 'Ir al Hospital juntos', done: false },
+  { id: 21, titulo: 'Darnos un beso bajando las escaleras electricas en Puruchuco', done: true },
+  { id: 22, titulo: 'Conocer a las hermanitas de Jennifer', done: true },
+  { id: 23, titulo: 'Comer popochas juntos', done: true },
+  { id: 24, titulo: 'Defender a Jennifer del peligro', done: true },
 ]
 
 export const PLANES_INICIALES = [
   {
     id: 1,
-    titulo: 'Cuenta regresiva de ejemplo',
-    fechaISO: '2026-02-17T00:00',
+    titulo: 'Ir a la casa de Jennifer',
+    fechaISO: '2026-05-17T11:00',
   },
   {
     id: 2,
-    titulo: 'Ir a ver una película (noviembre)',
-    fechaISO: '2026-11-01T19:00',
+    titulo: 'Los Juegos del Hambre, Pelicula',
+    fechaISO: '2026-11-01T00:00',
   },
 ]
 
